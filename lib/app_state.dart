@@ -7,43 +7,45 @@ import 'package:flutter/material.dart';
 import 'models/destination.dart';
 import 'repositories/destination_repository.dart';
 
-/// Manages global app state including destinations and user data.
+/// Global app state using ChangeNotifier for UI updates.
 class TravelAppState extends ChangeNotifier {
-  /// Repository handling destination data.
-  final DestinationRepository repository = DestinationRepository();
+  final DestinationRepository _repository = DestinationRepository();
 
-  /// User name.
-  String userName = 'Your Name';
+  bool isDarkMode = false;
 
-  /// User's traveler level.
+  String userName = 'Kate';
   int travelerLevel = 1;
-
-  /// User profile picture asset path.
   String profileImage = 'assets/images/profile.jpg';
 
-  /// Gets all destinations.
-  List<Destination> get destinations => repository.getAllDestinations();
+  /// Returns all destinations.
+  List<Destination> get destinations => _repository.getAllDestinations();
 
-  /// Gets list of visited destinations.
+  /// Returns destinations marked as visited.
   List<Destination> get visitedDestinations =>
       destinations.where((d) => d.isVisited).toList();
 
-  /// Gets list of favorite destinations.
+  /// Returns destinations marked as favorite.
   List<Destination> get favoriteDestinations =>
       destinations.where((d) => d.isFavorite).toList();
 
-  /// Toggles favorite status of [dest] and notifies listeners.
+  /// Toggles dark mode state.
+  void toggleDarkMode() {
+    isDarkMode = !isDarkMode;
+    notifyListeners();
+  }
+
+  /// Toggles favorite for [dest].
   void toggleFavorite(Destination dest) {
-    repository.toggleFavorite(dest);
+    _repository.toggleFavorite(dest);
     notifyListeners();
   }
 
-  /// Marks [dest] as visited and notifies listeners.
+  /// Marks [dest] as visited.
   void markVisited(Destination dest) {
-    repository.markVisited(dest);
+    _repository.markVisited(dest);
     notifyListeners();
   }
 
-  /// Gets set of visited countries.
-  Set<String> getVisitedCountries() => repository.getVisitedCountries();
+  /// Returns all visited countries.
+  Set<String> getVisitedCountries() => _repository.getVisitedCountries();
 }

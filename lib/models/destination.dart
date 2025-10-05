@@ -3,27 +3,14 @@
 /// Student: Ramandeep Singh - A00194321
 /// Defines destination data models using Dart OOP principles.
 
-/// Base class representing a travel destination.
 class Destination {
-  /// Name of the destination.
   final String name;
-
-  /// Country of the destination.
   final String country;
-
-  /// Detailed description of the destination.
   final String description;
-
-  /// Image URL representing the destination.
   final String imageUrl;
-
-  /// Whether this destination is marked as favorite.
   bool isFavorite;
-
-  /// Whether the destination has been marked as visited.
   bool isVisited;
 
-  /// Constructor for base Destination class.
   Destination({
     required this.name,
     required this.country,
@@ -33,20 +20,19 @@ class Destination {
     this.isVisited = false,
   });
 
-  /// Toggles the favorite status.
+  /// Toggle favorite status.
   void toggleFavorite() {
     isFavorite = !isFavorite;
   }
 
-  /// Marks the destination as visited.
+  /// Mark destination as visited.
   void markVisited() {
     isVisited = true;
   }
 }
 
-/// Tourist destination subclass adding a rating property.
+/// Tourist destination with rating.
 class TouristDestination extends Destination {
-  /// User rating of the destination.
   final double rating;
 
   TouristDestination({
@@ -54,7 +40,7 @@ class TouristDestination extends Destination {
     required String country,
     required String description,
     required String imageUrl,
-    this.rating = 0.0,
+    this.rating = 0,
     bool isFavorite = false,
     bool isVisited = false,
   }) : super(
@@ -67,9 +53,8 @@ class TouristDestination extends Destination {
         );
 }
 
-/// Cultural destination subclass adding a famous food property.
+/// Cultural destination with famous food.
 class CulturalDestination extends Destination {
-  /// Famous food related to the destination.
   final String famousFood;
 
   CulturalDestination({

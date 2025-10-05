@@ -5,34 +5,45 @@
 
 import '../models/destination.dart';
 
-/// Repository class holding destinations list and methods to interact with it.
+/// Repository managing destinations collection and actions.
 class DestinationRepository {
-  /// Internal list holding the destinations.
   final List<Destination> _destinations = [];
 
-  /// Gets all destinations as a list.
+  DestinationRepository() {
+    // Sample data added at initialization.
+    addDestination(TouristDestination(
+      name: 'Lake Tahoe',
+      country: 'USA',
+      description: 'Beautiful mountain lake in California.',
+      imageUrl: 'assets/images/destination1.jpg',
+      rating: 4.7,
+    ));
+    addDestination(CulturalDestination(
+      name: 'Kyoto',
+      country: 'Japan',
+      description: 'Historic temples and traditional cuisine.',
+      imageUrl: 'assets/images/destination2.jpg',
+      famousFood: 'Kaiseki',
+    ));
+  }
+
+  /// Returns the full list of destinations.
   List<Destination> getAllDestinations() => _destinations;
 
-  /// Toggles the favorite status of a given destination [d].
+  /// Toggles favorite status for destination [d].
   void toggleFavorite(Destination d) {
     d.toggleFavorite();
   }
 
-  /// Marks a destination [d] as visited.
+  /// Marks destination [d] as visited.
   void markVisited(Destination d) {
     d.markVisited();
   }
 
-  /// Returns a set of countries that have been visited.
-  Set<String> getVisitedCountries() {
-    return _destinations
-        .where((d) => d.isVisited)
-        .map((d) => d.country)
-        .toSet();
-  }
+  /// Returns set of countries that have been visited.
+  Set<String> getVisitedCountries() =>
+      _destinations.where((d) => d.isVisited).map((d) => d.country).toSet();
 
-  /// Adds a new destination to the list.
-  void addDestination(Destination dest) {
-    _destinations.add(dest);
-  }
+  /// Adds a destination.
+  void addDestination(Destination dest) => _destinations.add(dest);
 }
